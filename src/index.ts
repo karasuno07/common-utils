@@ -33,23 +33,6 @@ export function pickBy(obj: object, predicate = (v: unknown) => v) {
   return target;
 }
 
-export function random(lower = 0, upper: number, floating?: boolean) {
-  if (typeof upper === 'boolean') {
-    floating = upper;
-  }
-
-  if (isNaN(upper)) {
-    upper = lower < 0 ? 0 : 1;
-  }
-
-  if (typeof floating === 'undefined') {
-    floating = !Number.isInteger(lower) || !Number.isInteger(upper);
-  }
-
-  const randomNumber = Math.random() * (upper - lower) + lower;
-  return floating ? randomNumber : Math.round(randomNumber);
-}
-
 export function union(arr: unknown[] | undefined, ...args: unknown[]) {
   if (typeof arr !== 'undefined') {
     return Array.from(new Set(arr.concat(...args)));
@@ -72,6 +55,22 @@ export const math = {
     const modifier = precision ? 10 * precision : 1;
     return Math.ceil(value * modifier) / modifier;
   },
+  random(lower = 0, upper: number, floating?: boolean) {
+    if (typeof upper === 'boolean') {
+      floating = upper;
+    }
+  
+    if (isNaN(upper)) {
+      upper = lower < 0 ? 0 : 1;
+    }
+  
+    if (typeof floating === 'undefined') {
+      floating = !Number.isInteger(lower) || !Number.isInteger(upper);
+    }
+  
+    const randomNumber = Math.random() * (upper - lower) + lower;
+    return floating ? randomNumber : Math.round(randomNumber);
+  }
 };
 
 export function getStringAsNumber(
